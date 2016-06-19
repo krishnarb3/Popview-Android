@@ -3,10 +3,7 @@ package rb.popview;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.ImageView;
 
 /**
  * Created by rb on 18/6/16.
@@ -23,12 +20,6 @@ public class PopUtils {
 	}
 
 	public static Bitmap createBitmapFromView(View view) {
-		if (view instanceof ImageView) {
-			Drawable drawable = ((ImageView) view).getDrawable();
-			if (drawable != null && drawable instanceof BitmapDrawable) {
-				return ((BitmapDrawable) drawable).getBitmap();
-			}
-		}
 		view.clearFocus();
 		Bitmap bitmap = createBitmapSafely(view.getWidth(),
 			view.getHeight(), Bitmap.Config.ARGB_8888, 1);

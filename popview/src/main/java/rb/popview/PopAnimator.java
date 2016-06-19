@@ -17,9 +17,9 @@ import java.util.Random;
  */
 public class PopAnimator extends ValueAnimator {
 
-	static long DEFAULT_DURATION = 0x4000;
-	private static final int PARTICLE_COUNT_FACTOR = 30;
-	private static final int PARTICLE_MOVE_FACTOR = 2;
+	static long DEFAULT_DURATION = 0x500;
+	private static final int PARTICLE_COUNT_FACTOR = 20;
+	private static final int PARTICLE_MOVE_FACTOR = 10;
 	private static final Interpolator DEFAULT_INTERPOLATOR = new DecelerateInterpolator(0.8f);
 	private int defaultRadius;
 	private Paint mPaint;
@@ -33,19 +33,20 @@ public class PopAnimator extends ValueAnimator {
 		mBound = new Rect(bound);
 		Random random = new Random(System.currentTimeMillis());
 
-		int noOfParticlesX = bitmap.getWidth()/PARTICLE_COUNT_FACTOR;
-		int noOfParticlesY = bitmap.getHeight()/PARTICLE_COUNT_FACTOR;
+		int noOfParticlesX =(int) (((float)bitmap.getWidth()/bitmap.getWidth())*(float)PARTICLE_COUNT_FACTOR);
+		int noOfParticlesY =(int) (((float)bitmap.getHeight()/bitmap.getWidth())*(float)PARTICLE_COUNT_FACTOR);
 		int totalNoOfParticles = noOfParticlesX*noOfParticlesY;
 		int bitMapWidth = bitmap.getWidth();
 		int bitMapHeight = bitmap.getHeight();
 		mParticles = new Particle[totalNoOfParticles];
-		defaultRadius = ((bitMapWidth/noOfParticlesX) + (bitMapHeight/noOfParticlesY))/2;
+		defaultRadius = ((bitMapWidth/(2*noOfParticlesX)) + (bitMapHeight/(2*noOfParticlesY)))/2;
 		for(int i=0;i<noOfParticlesY;i++) {
 			for(int j=0;j<noOfParticlesX;j++) {
 				mParticles[ noOfParticlesX*i +j ]
 					= generateParticle( bitmap.getPixel((j*bitMapWidth/noOfParticlesX)
 						, (i*bitMapHeight/noOfParticlesY))
-						, (j*bitMapWidth/noOfParticlesX), (i*bitMapHeight/noOfParticlesY), random);
+						, mBound.left+(j*defaultRadius*2)
+						, mBound.top+(i*defaultRadius*2), random);
 
 			}
 		}
@@ -66,8 +67,8 @@ public class PopAnimator extends ValueAnimator {
 		particle.x = initialX;
 		particle.y = initialY;
 		float randRadius = random.nextFloat();
-		if(randRadius<0.5f)
-			randRadius = 0.5f+randRadius;
+		float randSpeed = random.nextFloat()*5;
+		particle.randSpeed = randSpeed;
 		particle.radius = randRadius*defaultRadius;
 		return particle;
 	}
@@ -97,6 +98,7 @@ public class PopAnimator extends ValueAnimator {
 	private class Particle {
 		int color;
 		float radius;
+		float randSpeed;
 		float initialX;
 		float initialY;
 		float x;
@@ -104,16 +106,10 @@ public class PopAnimator extends ValueAnimator {
 		float alpha;
 
 			public void advance (float factor) {
-				radius = (1f-(factor/2))*radius;
+				radius = (1f-(factor/40))*radius;
 				alpha = 1f-factor;
-				if(initialX<(mBitmap.getWidth()/2))
-					x = x-((mBitmap.getWidth()/2 - initialX)/(mBitmap.getWidth()/2))*(PARTICLE_MOVE_FACTOR);
-				else if(initialX>((mBitmap.getWidth()/2)))
-					x = x+((initialX - (mBitmap.getWidth()/2))/(mBitmap.getWidth()/2))*(PARTICLE_MOVE_FACTOR);
-				if(initialY<(mBitmap.getHeight()/2))
-					y = y-((mBitmap.getHeight()/2 - initialY)/(mBitmap.getHeight()/2))*(PARTICLE_MOVE_FACTOR);
-				else if(initialY>(mBitmap.getHeight()/2))
-					y = y+((initialY - mBitmap.getHeight()/2)/(mBitmap.getHeight()/2))*(PARTICLE_MOVE_FACTOR);
+					x = x+randSpeed*((initialX - (mBound.left+mBitmap.getWidth()/2))/(mBitmap.getWidth()/2))*(PARTICLE_MOVE_FACTOR);
+					y = y+randSpeed*((initialY - (mBound.top+mBitmap.getHeight()/2))/(mBitmap.getHeight()/2))*(PARTICLE_MOVE_FACTOR);
 			}
 	}
 }

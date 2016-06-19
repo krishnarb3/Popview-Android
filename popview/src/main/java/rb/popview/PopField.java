@@ -2,7 +2,6 @@ package rb.popview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,7 +15,6 @@ import android.view.Window;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by rb on 18/6/16.
@@ -54,11 +52,6 @@ public class PopField extends View{
 		}
 	}
 
-	public void expandPopViewBound(int dx, int dy) {
-		mExpandInset[0] = dx;
-		mExpandInset[1] = dy;
-	}
-
 	public void popView(Bitmap bitmap, Rect bound, long startDelay, long duration) {
 		final PopAnimator pop = new PopAnimator(this, bitmap, bound);
 		pop.addListener(new AnimatorListenerAdapter() {
@@ -79,21 +72,7 @@ public class PopField extends View{
 		int[] location = new int[2];
 		getLocationOnScreen(location);
 		r.offset(-location[0], -location[1]);
-		//r.inset(-mExpandInset[0], -mExpandInset[1]);
-		int startDelay = 100;
-		ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(150);
-		animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-			Random random = new Random();
-
-			@Override
-			public void onAnimationUpdate(ValueAnimator animation) {
-				view.setTranslationX((random.nextFloat() - 0.5f) * view.getWidth() * 0.05f);
-				view.setTranslationY((random.nextFloat() - 0.5f) * view.getHeight() * 0.05f);
-
-			}
-		});
-		animator.start();
+		int startDelay = 0;
 		view.animate().setDuration(150).setStartDelay(startDelay).scaleX(0f).scaleY(0f).alpha(0f).start();
 		popView(PopUtils.createBitmapFromView(view), r, startDelay, PopAnimator.DEFAULT_DURATION);
 	}
