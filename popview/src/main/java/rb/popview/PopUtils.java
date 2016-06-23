@@ -20,6 +20,23 @@ public class PopUtils {
 	}
 
 	public static Bitmap createBitmapFromView(View view) {
+
+		if (view.getMeasuredHeight() <= 0) {
+			int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+			view.measure(spec, spec);
+			view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+			Bitmap bitmap = createBitmapSafely(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888, 1);
+			if (bitmap != null) {
+				synchronized (sCanvas) {
+					Canvas canvas = sCanvas;
+					canvas.setBitmap(bitmap);
+					view.draw(canvas);
+					canvas.setBitmap(null);
+				}
+			}
+			return bitmap;
+		}
+
 		view.clearFocus();
 		Bitmap bitmap = createBitmapSafely(view.getWidth(),
 			view.getHeight(), Bitmap.Config.ARGB_8888, 1);
