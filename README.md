@@ -50,9 +50,9 @@ Eg:
    popField.popView(view,addView,true);
    ```
 
-#License
-
 Inspired by and thanks to [Tyrantgit's Explosion field](https://github.com/tyrantgit/ExplosionField)
+
+#License
 
 Copyright 2015 krishnarb3
 
