@@ -3,9 +3,56 @@ Pop animation with circular dust effect for any view updation
 
 ![Screenshots](https://media.giphy.com/media/FoGScttOF8e40/giphy.gif) 
 
+# Getting Started 
+<h4>In your build.gradle</h4>
+```groovy
+dependencies {
+   compile 'tyrantgit:explosionfield:1.0.1'
+}
+```
+<h4>Usage</h4>
+
+Initialize PopField like so :
+```java
+PopField popField = PopField.attach2window(activity);
+```
+
+<h5>Popping the view without replacement (1st icon)</h5>
+```java
+popField.popView(view);
+```
+
+<h5>Popping the view and replacing with new view without animation (2nd icon)</h5>
+```java
+popField.popView(view,newView);
+```
+Eg:
+   ```java
+   LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext()        
+    					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+   final View addView = layoutInflater.inflate(R.layout.sampleview, null);         //Inflate new view from xml
+   TextView newTextView = (TextView) addView.findViewById(R.id.sampletextview);    //Reference the newview     
+   newTextView.setText("New Sample text");
+   popField.popView(view,addView);
+   ```
+   
+<h5>Popping the view and replacing with new view with animation (3rd icon)</h5>
+```java
+popField.popView(view,newView,true);
+```
+Eg:
+   ```java
+   LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext()        
+    					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+   final View addView = layoutInflater.inflate(R.layout.sampleview, null);         //Inflate new view from xml
+   TextView newTextView = (TextView) addView.findViewById(R.id.sampletextview);    //Reference the newview     
+   newTextView.setText("New Sample text");
+   popField.popView(view,addView,true);
+   ```
+
 #License
 
-Inspired by an thanks to [Tyrantgit's Explosion field](https://github.com/tyrantgit/ExplosionField)
+Inspired by and thanks to [Tyrantgit's Explosion field](https://github.com/tyrantgit/ExplosionField)
 
 Copyright 2015 krishnarb3
 
