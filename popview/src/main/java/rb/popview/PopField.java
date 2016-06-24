@@ -51,7 +51,7 @@ public class PopField extends View {
 		}
 	}
 
-	public void popView(final Bitmap bitmap, final Rect bound
+	private void popView(final Bitmap bitmap, final Rect bound
 		, final long startDelay, final long duration) {
 		final PopAnimator pop = new PopAnimator(this, bitmap, bound);
 		pop.addListener(new AnimatorListenerAdapter() {
@@ -65,16 +65,18 @@ public class PopField extends View {
 		mPopViews.add(pop);
 		pop.start();
 	}
-	PopAnimator popNext;
-	public void popView(final Bitmap bitmap, final Bitmap addBitmap
+
+
+	private void popView(final Bitmap bitmap, final Bitmap addBitmap
 		, final View view, final View addView, final Rect bound
 		, final long startDelay, final long duration) {
+
 		final PopAnimator pop = new PopAnimator(this, bitmap, bound);
 		final View currentView = this;
 		pop.addListener(new AnimatorListenerAdapter() {
 			@Override
 			public void onAnimationEnd(Animator animation) {
-				popNext = new PopAnimator(currentView, addBitmap, bound, pop.getParticleValues());
+				PopAnimator popNext = new PopAnimator(currentView, addBitmap, bound, pop.getParticleValues());
 				popNext.addListener(new AnimatorListenerAdapter() {
 					@Override public void onAnimationEnd(Animator animation) {
 						ViewGroup parentViewGroup = (ViewGroup) view.getParent();
