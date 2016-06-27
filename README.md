@@ -7,7 +7,7 @@ Pop animation with circular dust effect for any view updation
 <h4>In your build.gradle</h4>
 ```groovy
 dependencies {
-   compile 'rb.popview:popview:0.1.1'
+   compile 'rb.popview:popview:0.1.0'
 }
 ```
 <h4>Usage</h4>
