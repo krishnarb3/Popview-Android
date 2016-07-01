@@ -1,6 +1,8 @@
 # Popview-Android
 Pop animation with circular dust effect for any view updation
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Popview--Android-green.svg?style=true)](https://android-arsenal.com/details/1/3813)
+
 ![Screenshots](https://media.giphy.com/media/FoGScttOF8e40/giphy.gif) 
 
 # Getting Started 
