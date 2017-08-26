@@ -7,28 +7,33 @@ Pop animation with circular dust effect for any view updation
 
 # Getting Started 
 <h4>In your build.gradle</h4>
+
 ```groovy
 dependencies {
-   compile 'rb.popview:popview:0.1.0'
+    compile 'rb.popview:popview:0.1.0'
 }
-```
+```    
 <h4>Usage</h4>
 
 Initialize PopField like so :
+
 ```java
 PopField popField = PopField.attach2window(activity);
 ```
 
 <h5>Popping the view without replacement (1st icon)</h5>
+
 ```java
 popField.popView(view);
 ```
 
 <h5>Popping the view and replacing with new view without animation (2nd icon)</h5>
+
 ```java
 popField.popView(view,newView);
 ```
 Eg:
+
    ```java
    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext()        
     					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -39,10 +44,12 @@ Eg:
    ```
    
 <h5>Popping the view and replacing with new view with animation (3rd icon)</h5>
+
 ```java
 popField.popView(view,newView,true);
 ```
 Eg:
+
    ```java
    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext()        
     					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,9 +61,9 @@ Eg:
 
 Inspired by and thanks to [Tyrantgit's Explosion field](https://github.com/tyrantgit/ExplosionField)
 
-#License
+# License
 
-Copyright 2015 krishnarb3
+Copyright 2017 krishnarb3
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
